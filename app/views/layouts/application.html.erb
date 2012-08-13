@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Nsa</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <title>Never Smash Alone</title>
+  <%= stylesheet_link_tag    'application', :media => 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+  <% if user_signed_in? %>
+    Hi, <%= link_to current_user.name, edit_user_registration_path %>.
+    <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to 'Sign up', new_user_registration_path %>
+    <%= link_to 'Log in', new_user_session_path %>
+  <% end %>
+
+  <div class="notice"><%= notice %></div>
+  <div class="alert"><%= alert %></div>
+
+  <%= yield %>
 
 </body>
 </html>
