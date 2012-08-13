@@ -15,7 +15,7 @@
 
   <div class="navbar navbar-fixed-top"><div class="navbar-inner"><div class="container">
     <div class="brand">Never Smash Alone</div>
-    <ul class="nav">
+    <ul class="nav pull-right">
       <% if user_signed_in? %>
         <li><%= link_to current_user.name, edit_user_registration_path %></li>
         <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
