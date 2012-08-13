@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+  before_filter :admin_only!, :except => [:index, :show]
+
   # GET /users
   # GET /users.json
   def index
@@ -80,4 +83,11 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  protected
+
+    def admin_only!
+      raise unless current_user && current_user.is_admin
+    end
+
 end
