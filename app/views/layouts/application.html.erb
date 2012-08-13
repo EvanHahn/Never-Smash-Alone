@@ -27,10 +27,10 @@
   </div></div></div>
 
   <% if notice %>
-    <div class="alert alert-info"><%= notice %></div>
+    <div class="alert alert-info closeable"><%= notice %></div>
   <% end %>
   <% if alert %>
-    <div class="alert"><%= alert %></div>
+    <div class="alert closeable"><%= alert %></div>
   <% end %>
 
   <%= yield %>
