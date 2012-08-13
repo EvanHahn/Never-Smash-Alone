@@ -26,8 +26,12 @@
     </ul>
   </div></div></div>
 
-  <div class="notice"><%= notice %></div>
-  <div class="alert"><%= alert %></div>
+  <% if notice %>
+    <div class="alert alert-info"><%= notice %></div>
+  <% end %>
+  <% if alert %>
+    <div class="alert"><%= alert %></div>
+  <% end %>
 
   <%= yield %>
 
