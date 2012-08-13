@@ -1,4 +1,4 @@
-Nsa::Application.routes.draw do
+NSA::Application.routes.draw do
   devise_for :users
 
   resources :users

@@ -1,8 +1,8 @@
 # Be sure to restart your server when you modify this file.
 
-Nsa::Application.config.session_store :cookie_store, key: '_nsa_session'
+NSA::Application.config.session_store :cookie_store, key: '_nsa_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rails generate session_migration")
-# Nsa::Application.config.session_store :active_record_store
+# NSA::Application.config.session_store :active_record_store

@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Nsa::Application.load_tasks
+NSA::Application.load_tasks
