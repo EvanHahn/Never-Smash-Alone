@@ -14,8 +14,12 @@ group :assets do
   gem 'twitter-bootstrap-rails'
 end
 
-gem 'debugger', :group => [:test, :development]
-gem 'rspec-rails', :group => [:test, :development]
+group :test, :development do
+  gem 'debugger'
+  gem 'rspec-rails'
+  gem 'hirb'
+end
+
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'

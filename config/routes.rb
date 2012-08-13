@@ -1,4 +1,6 @@
 NSA::Application.routes.draw do
+  resources :messages
+
   devise_for :users
 
   resources :users

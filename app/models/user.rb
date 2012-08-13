@@ -10,4 +10,8 @@ class User < ActiveRecord::Base
   validates_presence_of :name, :email
   validates_numericality_of :latitude # TODO less_than, greater_than
   validates_numericality_of :longitude
+
+  has_many :participants
+  has_many :messages, :through => :participants
+
 end
