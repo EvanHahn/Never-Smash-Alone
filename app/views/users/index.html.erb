@@ -16,7 +16,9 @@
       <th><%= model_class.human_attribute_name(:email) %></th>
       <th><%= model_class.human_attribute_name(:latitude) %></th>
       <th><%= model_class.human_attribute_name(:longitude) %></th>
-      <th><%= t '.actions', :default => t("helpers.actions") %></th>
+      <% if current_user %>
+        <th><%= t '.actions', :default => t("helpers.actions") %></th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -26,17 +28,24 @@
         <td><%= user.email %></td>
         <td><%= user.latitude %></td>
         <td><%= user.longitude %></td>
-        <td>
-          <% if current_user && current_user.is_admin %>
-            <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                        edit_user_path(user), :class => 'btn btn-mini' %>
-            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                        user_path(user),
-                        :method => :delete,
-                        :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-                        :class => 'btn btn-mini btn-danger' %>
-          <% end %>
-        </td>
+        <% if current_user %>
+          <td>
+            <% if current_user != user %>
+              <%= link_to 'Message',
+                  new_message_path(:to => user),
+                  :class => 'btn btn-mini btn-info' %>
+            <% end %>
+            <% if current_user.is_admin %>
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                          edit_user_path(user), :class => 'btn btn-mini' %>
+              <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                          user_path(user),
+                          :method => :delete,
+                          :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                          :class => 'btn btn-mini btn-danger' %>
+            <% end %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
