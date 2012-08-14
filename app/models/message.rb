@@ -1,14 +1,16 @@
 class Message < ActiveRecord::Base
 
-  attr_accessible :body
+  attr_accessible :body, :recipient, :read
 
-  has_many :participants
-  has_many :sender_participants, :class_name => Participant, :conditions => { :sender => true }
-  has_many :senders, :through => :sender_participants, :source => :user
-  has_many :users, :through => :participants
+  belongs_to :sender, :class_name => User
+  belongs_to :recipient, :class_name => User
 
-  def sender
-    senders.limit(1).first
+  scope :read, where(:read => true)
+  scope :unread, where(:read => false)
+
+  def mark_read
+    self.read = true
+    self.save
   end
 
   # TODO dependent clauses

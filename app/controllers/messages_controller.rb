@@ -1,50 +1,45 @@
 class MessagesController < ApplicationController
-  # GET /messages
-  # GET /messages.json
-  def index
-    @messages = Message.all
 
+  before_filter :authenticate_user!
+  # TODO users can see other users' messages
+
+  def index
+    @messages = current_user.messages_in.order('created_at DESC').group('sender_id')
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @messages }
     end
   end
 
-  # GET /messages/1
-  # GET /messages/1.json
-  def show
-    @message = Message.find(params[:id])
-
+  def with
+    @other = User.find(params[:id])
+    @messages = Message.where("(sender_id is #{current_user.id} AND recipient_id is #{@other.id}) OR (sender_id is #{@other.id} AND recipient_id is #{current_user.id})").order('created_at')
+    @messages.each do |m|
+      m.mark_read
+    end
+    @new_message = Message.new
+    # @message.update_attribute :read => Time.now
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # with.html.erb
       format.json { render json: @message }
     end
   end
 
-  # GET /messages/new
-  # GET /messages/new.json
   def new
     @message = Message.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @message }
     end
   end
 
-  # GET /messages/1/edit
-  def edit
-    @message = Message.find(params[:id])
-  end
-
-  # POST /messages
-  # POST /messages.json
   def create
-    @message = Message.new(params[:message])
-
+    recipient = User.find_by_name params[:message][:recipient]
+    @message = Message.new(params[:message].merge({ :recipient => recipient }))
+    @message.sender = current_user
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        format.html { redirect_to "/messages/#{recipient.id}/with" }
         format.json { render json: @message, status: :created, location: @message }
       else
         format.html { render action: "new" }
@@ -53,31 +48,12 @@ class MessagesController < ApplicationController
     end
   end
 
-  # PUT /messages/1
-  # PUT /messages/1.json
-  def update
-    @message = Message.find(params[:id])
-
+  def read
+    Message.find(params[:id]).mark_read
     respond_to do |format|
-      if @message.update_attributes(params[:message])
-        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /messages/1
-  # DELETE /messages/1.json
-  def destroy
-    @message = Message.find(params[:id])
-    @message.destroy
-
-    respond_to do |format|
-      format.html { redirect_to messages_url }
+      format.html { redirect_to messages_path }
       format.json { head :no_content }
     end
   end
+
 end

@@ -18,6 +18,13 @@
     <ul class="nav pull-right">
       <% if user_signed_in? %>
         <li><%= link_to current_user.name, edit_user_registration_path %></li>
+        <li>
+          <% messages_count = '' %>
+          <% if current_user.messages_in.unread.count > 0
+               messages_count = " (#{current_user.messages_in.unread.count})"
+             end %>
+          <%= link_to "Messages#{messages_count}", messages_path, :style => 'display:inline-block' %>
+        </li>
         <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
       <% else %>
         <li><%= link_to 'Sign up', new_user_registration_path %></li>

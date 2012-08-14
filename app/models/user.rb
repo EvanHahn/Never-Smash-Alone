@@ -11,7 +11,10 @@ class User < ActiveRecord::Base
   validates_numericality_of :latitude # TODO less_than, greater_than
   validates_numericality_of :longitude
 
-  has_many :participants
-  has_many :messages, :through => :participants
+  has_many :messages_out, :foreign_key => :sender_id, :class_name => Message
+  has_many :messages_in, :foreign_key => :recipient_id, :class_name => Message
+  def messages
+    messages_out + messages_in
+  end
 
 end

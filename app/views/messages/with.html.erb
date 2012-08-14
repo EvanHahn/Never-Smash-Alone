@@ -1,0 +1,26 @@
+<div class="page-header">
+  <%= link_to 'Back', messages_path, :class => 'btn pull-right' %>
+  <h1>Messages with <%= link_to @other.name, @other %></h1>
+</div>
+
+<table class="table table-striped">
+  <tbody>
+    <% for message in @messages %>
+      <tr>
+        <td><%= link_to message.sender.name, message.sender %></td>
+        <td width="75%"><%= message.body %></td>
+        <td><%= message.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= form_for(@new_message, :html => { :class => 'form-inline' }) do |f| %>
+
+  <%= f.hidden_field :recipient, :value => @other.name %>
+  <%= f.text_area :body, :class => 'text_area full', :rows => 5 %>
+  <div class="form-actions">
+    <%= f.submit 'Send', :class => 'btn btn-primary pull-right' %>
+  </div>
+
+<% end %>

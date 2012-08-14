@@ -11,21 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120813222609) do
+ActiveRecord::Schema.define(:version => 20120814010814) do
 
   create_table "messages", :force => true do |t|
     t.text     "body"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "participants", :force => true do |t|
-    t.integer  "message_id"
-    t.integer  "user_id"
-    t.boolean  "sender"
-    t.datetime "read_at"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "read",         :default => false
   end
 
   create_table "users", :force => true do |t|

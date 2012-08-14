@@ -32,7 +32,7 @@
           <td>
             <% if current_user != user %>
               <%= link_to 'Message',
-                  new_message_path(:to => user),
+                  new_message_path(:recipient => user.name),
                   :class => 'btn btn-mini btn-info' %>
             <% end %>
             <% if current_user.is_admin %>

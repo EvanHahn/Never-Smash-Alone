@@ -1,23 +1,20 @@
-<h1>Listing messages</h1>
+<div class="page-header">
+  <%= link_to 'New message', new_message_path, :class => 'btn btn-primary pull-right' %>
+  <h1>Messages</h1>
+</div>
 
-<table>
-  <tr>
-    <th>Body</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @messages.each do |message| %>
-  <tr>
-    <td><%= message.body %></td>
-    <td><%= link_to 'Show', message %></td>
-    <td><%= link_to 'Edit', edit_message_path(message) %></td>
-    <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<table class="table table-striped">
+  <tbody>
+    <% @messages.each do |message| %>
+      <tr>
+        <td><%= message.sender.name %>: <%= message.body %></td>
+        <td>
+          <%= link_to 'Read', "messages/#{message.sender.id}/with", :class => 'btn btn-mini btn-primary' %>
+          <% if message.sender != current_user && !message.read? && false # TODO %>
+            <%= link_to 'Mark read', message, method: :show, :class => 'btn btn-mini' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
-
-<br />
-
-<%= link_to 'New Message', new_message_path %>

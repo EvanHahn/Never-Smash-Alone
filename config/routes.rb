@@ -1,9 +1,10 @@
 NSA::Application.routes.draw do
-  resources :messages
 
   devise_for :users
-
   resources :users
+
+  resources :messages
+  match '/messages/:id/with' => 'messages#with'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
