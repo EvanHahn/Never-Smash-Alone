@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :messages_out, :foreign_key => :sender_id, :class_name => Message
   has_many :messages_in, :foreign_key => :recipient_id, :class_name => Message
   def messages
-    messages_out + messages_in
+    Message.with(id)
   end
 
 end

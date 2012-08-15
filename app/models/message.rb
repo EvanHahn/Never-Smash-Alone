@@ -7,12 +7,13 @@ class Message < ActiveRecord::Base
 
   scope :read, where(:read => true)
   scope :unread, where(:read => false)
+  scope :with, lambda { |id| where('sender_id = ? or recipient_id = ?', id, id) }
 
-  def mark_read
-    self.read = true
-    self.save
+  def mark_read!
+    update_attribute :read, true
   end
 
   # TODO dependent clauses
+  # TODO read-only attributes
 
 end

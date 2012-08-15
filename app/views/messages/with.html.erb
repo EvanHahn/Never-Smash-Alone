@@ -6,6 +6,7 @@
 <table class="table table-striped">
   <tbody>
     <% for message in @messages %>
+      <% message.mark_read! if message.recipient == current_user %>
       <tr>
         <td><%= link_to message.sender.name, message.sender %></td>
         <td width="75%"><%= message.body %></td>
