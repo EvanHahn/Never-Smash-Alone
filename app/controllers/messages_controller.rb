@@ -45,7 +45,6 @@ class MessagesController < ApplicationController
   end
 
   def read
-    debugger
     current_user.messages.find(params[:id]).mark_read!
     respond_to do |format|
       format.html { redirect_to messages_path }
