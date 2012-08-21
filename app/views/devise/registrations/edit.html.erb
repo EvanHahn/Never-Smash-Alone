@@ -23,13 +23,13 @@
   <div class="control-group">
     <%= f.label :latitude, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :latitude, :class => 'text_field' %>
+      <%= f.text_field :latitude, :class => 'text_field' %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :longitude, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :longitude, :class => 'text_field' %>
+      <%= f.text_field :longitude, :class => 'text_field' %>
     </div>
   </div>
 
@@ -48,6 +48,9 @@
       <%= f.password_field :password_confirmation, :class => 'password_field' %>
     </div>
   </div>
+
+  <hr />
+
   <div class="control-group">
     <%= f.label :current_password, :class => 'control-label' %>
     <div class="controls">
